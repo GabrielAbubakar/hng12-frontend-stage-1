@@ -1,6 +1,7 @@
 import GameInstructions from "./components/gameInstructions"
 import { useContext } from "react"
 import { AppContext } from "./context/AppContext"
+import ReactConfetti from "react-confetti"
 
 const App = () => {
 
@@ -28,6 +29,8 @@ const App = () => {
     return (
         <div className="p-5">
             <h1 className="font-bold text-4xl mt-10 mb-24 underline">Color Matcher</h1>
+
+            {correctColor == selectedColor && <ReactConfetti wind={.04} />}
 
             <div data-testid="colorBox"
                 className={`bg-gray-600 ${correctColor == selectedColor && `bg-${correctColor}-600`}
