@@ -1,22 +1,75 @@
 import GameInstructions from "./components/gameInstructions"
+import { useContext } from "react"
+import { AppContext } from "./context/AppContext"
 
 const App = () => {
+
+    const { colors, correctColor, currentScore, selectedColor,
+        setSelectedColor, setCurrentScore,
+        setCorrectColor } = useContext(AppContext)
+
+    function setChoice(color: string) {
+        setSelectedColor(color)
+    }
+
+    function resetGame() {
+        setCorrectColor(colors[Math.floor(Math.random() * colors.length)])
+        setSelectedColor('')
+        setCurrentScore(0)
+    }
+
+    function nextRound() {
+        setSelectedColor('')
+        setCorrectColor(colors[Math.floor(Math.random() * colors.length)])
+    }
+
     return (
         <div className="p-5">
-            <h1 className="font-bold text-4xl">Color Matcher</h1>
+            <h1 className="font-bold text-4xl mt-10 mb-24 underline">Color Matcher</h1>
 
-            <div>
-                <p>Color Display</p>
-                <div data-testid="colorBox"></div>
+            <div data-testid="colorBox"
+                className={`bg-gray-600 ${correctColor == selectedColor && `bg-${correctColor}-600`}
+                     text-white text-2xl p-14 font-bold inline-block`}>
+                <p data-testid="gameStatus">
+                    {
+                        selectedColor == '' ? ('Guess the color?') : correctColor == selectedColor ? ('Correct!!!') : ('Wrong!!!')
+                    }
+                </p>
             </div>
 
-            <div className="flex gap-2">
-                <button className="bg-red-600 px-3 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 transition-all" data-testid="colorOption" >Red</button>
-                <button className="bg-blue-600 px-3 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 transition-all" data-testid="colorOption" >Blue</button>
-                <button className="bg-yellow-600 px-3 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 transition-all" data-testid="colorOption" >Yellow</button>
-                <button className="bg-orange-600 px-3 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 transition-all" data-testid="colorOption" >Orange</button>
-                <button className="bg-green-600 px-3 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 transition-all" data-testid="colorOption" >Green</button>
-                <button className="bg-purple-600 px-3 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 transition-all" data-testid="colorOption" >Purple</button>
+            <div className="flex gap-5 my-10 flex-wrap">
+                <button
+                    onClick={() => setChoice('red')}
+                    className="bg-red-600 px-5 py-2 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 active:translate-y-0 transition-all" data-testid="colorOption" >Red</button>
+                <button
+                    onClick={() => setChoice('blue')}
+                    className="bg-blue-600 px-5 py-2 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 active:translate-y-0 transition-all" data-testid="colorOption" >Blue</button>
+                <button
+                    onClick={() => setChoice('yellow')}
+                    className="bg-yellow-600 px-5 py-2 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 active:translate-y-0 transition-all" data-testid="colorOption" >Yellow</button>
+                <button
+                    onClick={() => setChoice('orange')}
+                    className="bg-orange-600 px-5 py-2 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 active:translate-y-0 transition-all" data-testid="colorOption" >Orange</button>
+                <button
+                    onClick={() => setChoice('green')}
+                    className="bg-green-600 px-5 py-2 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 active:translate-y-0 transition-all" data-testid="colorOption" >Green</button>
+                <button
+                    onClick={() => setChoice('purple')}
+                    className="bg-purple-600 px-5 py-2 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 active:translate-y-0 transition-all" data-testid="colorOption" >Purple</button>
+            </div>
+
+            <p data-testid="score">Total Score: {currentScore}</p>
+
+            <div className="flex gap-3">
+                <button
+                    className="cursor-pointer bg-indigo-300 px-4 py-1 mt-10"
+                    onClick={() => nextRound()}>
+                    Next Round
+                </button>
+                <button
+                    onClick={() => resetGame()}
+                    className="cursor-pointer bg-indigo-300 px-4 py-1 mt-10"
+                    data-testid="newGameButton">Reset Game</button>
             </div>
 
             <GameInstructions />
