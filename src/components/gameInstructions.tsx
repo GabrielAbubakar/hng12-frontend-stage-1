@@ -7,7 +7,7 @@ const GameInstructions = () => {
             <ul className="list-disc">
                 <li>A random color is placed in the answer box</li>
                 <li>Take a guess at which of the buttons contains the correct color</li>
-                <li>On click if the option was right or wrong it will be showns</li>
+                <li>On click if the option was right or wrong it will be shown</li>
                 <li>Click on "Next Round" to move to the next round</li>
                 <li>Click on "Reset Game" to move to reset score to zero</li>
             </ul>

@@ -6,7 +6,7 @@ const App = () => {
 
     const { colors, correctColor, currentScore, selectedColor,
         setSelectedColor, setCurrentScore,
-        setCorrectColor } = useContext(AppContext)
+        setCorrectColor, round, setRound } = useContext(AppContext)
 
     function setChoice(color: string) {
         setSelectedColor(color)
@@ -16,10 +16,12 @@ const App = () => {
         setCorrectColor(colors[Math.floor(Math.random() * colors.length)])
         setSelectedColor('')
         setCurrentScore(0)
+        setRound(1)
     }
 
     function nextRound() {
         setSelectedColor('')
+        setRound(round + 1)
         setCorrectColor(colors[Math.floor(Math.random() * colors.length)])
     }
 
@@ -58,6 +60,7 @@ const App = () => {
                     className="bg-purple-600 px-5 py-2 text-white cursor-pointer border border-gray-600 hover:-translate-y-1 active:translate-y-0 transition-all" data-testid="colorOption" >Purple</button>
             </div>
 
+            <p>Round {round}</p>
             <p data-testid="score">Total Score: {currentScore}</p>
 
             <div className="flex gap-3">

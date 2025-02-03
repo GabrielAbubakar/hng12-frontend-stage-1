@@ -2,6 +2,7 @@ import React, { ReactNode, useState, useEffect } from "react"
 import { AppContext } from "./AppContext.tsx"
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [round, setRound] = useState(1)
     const [colors, setColors] = useState(['red', 'blue', 'yellow', 'orange', 'green', 'purple'])
     const [correctColor, setCorrectColor] = useState(colors[Math.floor(Math.random() * colors.length)])
     const [selectedColor, setSelectedColor] = useState('')
@@ -19,7 +20,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
     return (
         <AppContext.Provider value={{
-            colors, correctColor, setCorrectColor, currentScore, setCurrentScore, selectedColor, setSelectedColor, setColors
+            colors, correctColor, round, setRound, setCorrectColor, currentScore,
+            setCurrentScore, selectedColor, setSelectedColor, setColors
         }}>
             {children}
         </AppContext.Provider>
