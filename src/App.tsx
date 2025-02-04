@@ -11,6 +11,12 @@ const App = () => {
 
     function setChoice(color: string) {
         setSelectedColor(color)
+
+        setTimeout(() => {
+            setSelectedColor('')
+            setCorrectColor(colors[Math.floor(Math.random() * colors.length)])
+            setRound(round + 1)
+        }, 2000);
     }
 
     function resetGame() {
@@ -33,11 +39,10 @@ const App = () => {
             {correctColor == selectedColor && <ReactConfetti wind={.04} />}
 
             <div data-testid="colorBox"
-                className={`bg-gray-600 ${correctColor == selectedColor && `bg-${correctColor}-600`}
-                     text-white text-2xl p-14 font-bold inline-block`}>
+                className={`bg-${correctColor}-600 text-white text-2xl p-14 font-bold inline-block`}>
                 <p data-testid="gameStatus">
                     {
-                        selectedColor == '' ? ('Guess the color?') : correctColor == selectedColor ? ('Correct!!!') : ('Wrong!!!')
+                        selectedColor == '' ? ('Guess the color?') : correctColor == selectedColor ? ('Correct!!!✅') : ('Wrong!!!❌')
                     }
                 </p>
             </div>
